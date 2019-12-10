@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper } from "@material-ui/core";
+import { Paper, Grid} from "@material-ui/core";
 
 function ItemPage({ match }) {
   useEffect(() => {
@@ -10,11 +10,12 @@ function ItemPage({ match }) {
     images: [],
     priceRanges: [],
     promoter: [],
-    seatmap: {}
+    seatmap: {},
+    sales: {}
   });
 
   const fetchItem = async () => {
-    const data = await fetch(
+    await fetch(
       `https://app.ticketmaster.com/discovery/v2/events/${match.params.table_id}?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd`
     )
       .then(resp => resp.json())
@@ -30,7 +31,7 @@ function ItemPage({ match }) {
   const priceRanges = item.priceRanges.map(i => (
     <p className="item__text">
       {typeof i !== undefined
-        ? "Price range: " + i.min + " to " + i.max
+        ? i.min + " to " + i.max + " USD"
         : "No prices available"}
     </p>
   ));
@@ -40,15 +41,26 @@ function ItemPage({ match }) {
       <Paper className="item">
         <h1>{item.name}</h1>
         <hr></hr>
+        <img className="item__img" src={item.seatmap.staticUrl}></img>
+        {images[4]}
+        <h2>Price Ranges</h2>
         {priceRanges}
-        <p className="item__text">Promoter: {item.promoter.name}</p>
+        <h2>Promoter</h2>
+        <p className="item__text">{item.promoter.name}</p>
+        <h2>Description</h2>
         <p className="item__text">
           {typeof item.info !== undefined
             ? "General Info: " + item.info
             : "No information available"}
         </p>
-        <img className="item__img" src={item.seatmap.staticUrl}></img>
-        {images[4]}
+        <h2>Start sales</h2>
+        <p className="item__text">
+          {Object.values(item.sales).map(i => {
+            return (
+              "Sales start from " + i.startDateTime + " until " + i.endDateTime
+            );
+          })}
+        </p>
       </Paper>
     </div>
   );

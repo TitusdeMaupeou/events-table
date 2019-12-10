@@ -9,7 +9,7 @@ body {
   margin-left: auto;
   margin-top: 50px;
   padding: 10px;
-  margin: 40px;
+  margin: 50px;
 }
 
 a {
@@ -49,7 +49,6 @@ tbody tr:hover {
 
 .item__text {
   color: #999999;  
-  padding: 10px;
   width: 80%;
 }
 
