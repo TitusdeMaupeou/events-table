@@ -12,13 +12,10 @@ import { Paper } from "@material-ui/core";
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
 
-const TableList = () => {
+const DataTable = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  // const [tableItem, setItem] = useState({
-  //   promoter: []
-  // });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -96,4 +93,4 @@ const TableList = () => {
   );
 };
 
-export default TableList;
+export default DataTable;

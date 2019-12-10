@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import "./App.css";
-import TableList from "./components/TableList";
+import DataTable from "./components/DataTable";
 import ItemDetail from "./components/ItemDetail";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={TableList} />
+          <Route path="/" exact component={DataTable} />
           <Route path="/:table_id" component={ItemDetail} />
         </Switch>
       </BrowserRouter>

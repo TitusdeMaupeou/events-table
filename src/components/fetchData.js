@@ -11,13 +11,6 @@ const FetchData = url => {
         await fetch(url)
           .then(resp => resp.json())
           .then(function(d) {
-            // const priceRanges = Object.values(d._embedded.events).map(
-            //   (item, i) => {
-            //     item.priceRanges.map(j => {
-            //       console.log(j.min);
-            //     });
-            //   }
-            // );
             setDataState({
               ...dataState,
               data: d._embedded.events,
