@@ -45,7 +45,7 @@ const DataTable = () => {
   return (
     <div className="container">
       <Paper>
-        <Table size="small">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Event</TableCell>
@@ -67,7 +67,7 @@ const DataTable = () => {
                 </TableCell>
                 <TableCell>
                   <Link to={"/" + row.id}>
-                    {prices[i][0]} to {prices[i][1]}
+                    {prices[i][0]} to {prices[i][1]} USD
                   </Link>
                 </TableCell>
                 <TableCell>
@@ -80,7 +80,7 @@ const DataTable = () => {
           </TableBody>
         </Table>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10]}
           component="div"
           count={50}
           rowsPerPage={rowsPerPage}
