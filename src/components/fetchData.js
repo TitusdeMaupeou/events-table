@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { className } from "postcss-selector-parser";
 
 const FetchData = url => {
   const [loading, setLoading] = useState(true);

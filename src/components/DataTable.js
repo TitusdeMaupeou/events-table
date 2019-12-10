@@ -26,10 +26,8 @@ const DataTable = () => {
     setPage(0);
   };
 
-  if (dataState.data.length > 0) {
-    console.log(dataState.data[0]);
-  }
-
+  // temporary, global var for the prices
+  // need to fix this
   let prices = [];
   const priceRanges = Object.values(dataState.priceRanges)
     .filter(el => {
@@ -38,7 +36,6 @@ const DataTable = () => {
     .map(i => {
       i.map(j => {
         prices.push([j.min, j.max]);
-        return j.min;
       });
     });
 

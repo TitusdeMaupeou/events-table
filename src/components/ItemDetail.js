@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, Grid } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 function ItemPage({ match }) {
   useEffect(() => {
