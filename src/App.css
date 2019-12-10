@@ -1,0 +1,40 @@
+body {
+  background-color: #E9EDF7;
+}
+
+.container {
+  overflow-x: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+td, th {
+  padding: .635em;
+}
+
+a td{
+  background-color: yellow;
+}
+
+tr {
+  padding: .35em;
+}
+
+tr:nth-child(even) {
+  background-color: #FAFAFA;
+}
+
+.item {
+  padding: 10px 50px;
+}
+
+.item__img {
+  height: 200px;
+}
