@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FetchData from "./fetchData";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
-import { Paper, Grid } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -16,26 +16,34 @@ const TableList = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [tableItem, setItem] = useState({
-    promoter: []
-  });
+  // const [tableItem, setItem] = useState({
+  //   promoter: []
+  // });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    console.log(newPage);
   };
 
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-    console.log(event.target.value);
   };
 
   if (dataState.data.length > 0) {
     console.log(dataState.data[0]);
   }
 
-  // dataState.foreach(el => console.log(el)
+  let prices = [];
+  const priceRanges = Object.values(dataState.priceRanges)
+    .filter(el => {
+      return el !== undefined;
+    })
+    .map(i => {
+      i.map(j => {
+        prices.push([j.min, j.max]);
+        return j.min;
+      });
+    });
 
   return (
     <div className="container">
@@ -44,7 +52,7 @@ const TableList = () => {
           <TableHead>
             <TableRow>
               <TableCell>Event</TableCell>
-              <TableCell>Promoter</TableCell>
+              <TableCell>Price Ranges</TableCell>
               <TableCell>Date</TableCell>
             </TableRow>
           </TableHead>
@@ -55,13 +63,15 @@ const TableList = () => {
                   page * rowsPerPage + rowsPerPage
                 )
               : dataState.data
-            ).map(row => (
+            ).map((row, i) => (
               <TableRow key={row.id}>
                 <TableCell>
                   <Link to={"/" + row.id}>{row.name}</Link>
                 </TableCell>
                 <TableCell>
-                  <Link to={"/" + row.id}></Link>
+                  <Link to={"/" + row.id}>
+                    {prices[i][0]} to {prices[i][1]}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Link to={"/" + row.id}>

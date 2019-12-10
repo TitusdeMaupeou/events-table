@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { className } from "postcss-selector-parser";
 
 const FetchData = url => {
   const [loading, setLoading] = useState(true);
@@ -7,19 +8,27 @@ const FetchData = url => {
   useEffect(() => {
     const fetchDataFromApi = async () => {
       try {
-        fetch(url)
+        await fetch(url)
           .then(resp => resp.json())
           .then(function(d) {
-            console.log(d._embedded.events[Object.keys("priceRanges")[5]]);
+            // const priceRanges = Object.values(d._embedded.events).map(
+            //   (item, i) => {
+            //     item.priceRanges.map(j => {
+            //       console.log(j.min);
+            //     });
+            //   }
+            // );
             setDataState({
               ...dataState,
               data: d._embedded.events,
-              priceRanges: d._embedded.events.priceRanges
+              priceRanges: Object.values(d._embedded.events).map(item => {
+                return item.priceRanges;
+              })
             });
             setLoading(false);
           });
       } catch (error) {
-        console.error("an error has occurred");
+        console.error(error);
         setLoading(false);
       }
     };

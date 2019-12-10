@@ -1,5 +1,5 @@
 body {
-  background-color: #E9EDF7;
+  color: #999999;
 }
 
 .container {
@@ -8,19 +8,21 @@ body {
   margin-left: auto;
   margin-top: 50px;
   padding: 10px;
-  margin: 10px;
+  margin: 40px;
 }
 
 a {
   text-decoration: none;
 }
 
-td, th {
-  padding: .635em;
+thead {
+  background: rgb(55,141,225);
+  background: linear-gradient(90deg, rgba(55,141,225,1) 0%, rgba(55,98,225,1) 100%);
 }
 
-a td{
-  background-color: yellow;
+td, th {
+  padding: .635em;
+  color: #fff !important;
 }
 
 tr {
@@ -28,13 +30,23 @@ tr {
 }
 
 tr:nth-child(even) {
-  background-color: #FAFAFA;
+  background-color: #ffffff;
 }
 
 .item {
   padding: 10px 50px;
 }
 
+.item__text {
+  padding: 10px;
+  width: 80%;
+}
+
 .item__img {
   height: 200px;
+}
+
+hr {
+  color: rgb(55,141,225);
+  color: linear-gradient(90deg, rgba(55,141,225,1) 0%, rgba(55,98,225,1) 100%);
 }

@@ -19,7 +19,6 @@ function ItemPage({ match }) {
     )
       .then(resp => resp.json())
       .then(function(d) {
-        console.log(d);
         setItem(d);
       });
   };
@@ -29,8 +28,10 @@ function ItemPage({ match }) {
   ));
 
   const priceRanges = item.priceRanges.map(i => (
-    <p>
-      Price range: {i.min} to {i.max} {i.currency}
+    <p className="item__text">
+      {typeof i !== undefined
+        ? "Price range: " + i.min + " to " + i.max
+        : "No prices available"}
     </p>
   ));
 
@@ -38,11 +39,15 @@ function ItemPage({ match }) {
     <div className="container">
       <Paper className="item">
         <h1>{item.name}</h1>
+        <hr></hr>
         {priceRanges}
-        <p>Promoter: {item.promoter.name}</p>
-        <p>General Info: {item.info}</p>
+        <p className="item__text">Promoter: {item.promoter.name}</p>
+        <p className="item__text">
+          {typeof item.info !== undefined
+            ? "General Info: " + item.info
+            : "No information available"}
+        </p>
         <img className="item__img" src={item.seatmap.staticUrl}></img>
-        {/* {typeof(priceRanges) !== undefined ? {priceRanges} : "There are no prices available"} */}
         {images[4]}
       </Paper>
     </div>
