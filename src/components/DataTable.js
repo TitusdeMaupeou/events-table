@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FetchData from "./FetchData";
 import Table from "@material-ui/core/Table";
@@ -8,7 +8,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Paper } from "@material-ui/core";
-import { join } from "path";
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -71,7 +70,6 @@ const priceRanges = (row, index) => Object.values(row).map((key, index) => {
                 <TableCell>
                   <Link to={"/" + row.id}>
                   {priceRanges(row, i)[0]}
-                  {console.log(priceRanges(row,i))}
                   </Link>
                 </TableCell>
                 <TableCell>
