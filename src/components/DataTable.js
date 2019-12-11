@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import FetchData from "./FetchData";
 import Table from "@material-ui/core/Table";
@@ -26,14 +26,14 @@ const DataTable = () => {
     setPage(0);
   };
 
-  // temporary, global var for the prices
-  // need to fix this
-  // v => v === undefined ? '-' : v
-  let prices = [];
-  const priceRanges = Object.values(dataState.priceRanges)
-    .map(i => i === undefined ? prices.push('-'): i.map(j => 
-        prices.push(j.min + " to " + j.max + " USD")
-      ));
+const priceRanges = Object(dataState.data).map((key, index) => {
+  let arr = []
+  dataState.data[index].priceRanges !== undefined
+  ? dataState.data[index].priceRanges.map(j =>
+      arr[index] = j.min + " to " + j.max + " " + j.currency
+    ) : arr[index] = "-"
+  return arr;
+});
 
   return (
     <div className="container">
@@ -60,7 +60,7 @@ const DataTable = () => {
                 </TableCell>
                 <TableCell>
                   <Link to={"/" + row.id}>
-                    {prices[i]}
+                  {priceRanges[i]}
                   </Link>
                 </TableCell>
                 <TableCell>
