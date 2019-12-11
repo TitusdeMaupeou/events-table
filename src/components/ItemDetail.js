@@ -11,7 +11,7 @@ function ItemPage({ match }) {
     priceRanges: [],
     promoter: [],
     seatmap: {},
-    sales: {}
+    sales: []
   });
 
   const fetchItem = async () => {
@@ -49,17 +49,17 @@ function ItemPage({ match }) {
         <p className="item__text">{item.promoter.name}</p>
         <h2>Description</h2>
         <p className="item__text">
-          {typeof item.info !== undefined
-            ? "General Info: " + item.info
-            : "No information available"}
+          {item.info === undefined
+            ? "No information available"
+            : "General Info: " + item.info}
         </p>
         <h2>Start sales</h2>
         <p className="item__text">
-          {Object.values(item.sales).map(i => {
-            return (
-              "Sales start from " + i.startDateTime + " until " + i.endDateTime
-            );
-          })}
+          {
+            Object.values(item.sales).map(i => {
+              return i.startDateTime + " until " + i.endDateTime;
+            })
+          }
         </p>
       </Paper>
     </div>
