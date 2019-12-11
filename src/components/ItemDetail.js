@@ -58,7 +58,9 @@ function ItemPage({ match }) {
           {
             Object.values(item.sales).map(i => {
               if(i.startDateTime !== undefined || i.endDateTime !== undefined) {
-                return i.startDateTime + " until " + i.endDateTime;
+                let start = i.startDateTime.split('-');
+                console.log(start, start[2])
+                return start + start[2][0, 2] + " until " + i.endDateTime;
               }
             })
           }

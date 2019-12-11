@@ -28,16 +28,12 @@ const DataTable = () => {
 
   // temporary, global var for the prices
   // need to fix this
+  // v => v === undefined ? '-' : v
   let prices = [];
   const priceRanges = Object.values(dataState.priceRanges)
-    .filter(el => {
-      return el !== undefined;
-    })
-    .map(i => {
-      i.map(j => {
-        prices.push([j.min, j.max]);
-      });
-    });
+    .map(i => i === undefined ? prices.push('-'): i.map(j => 
+        prices.push(j.min + " to " + j.max + " USD")
+      ));
 
   return (
     <div className="container">
@@ -64,7 +60,7 @@ const DataTable = () => {
                 </TableCell>
                 <TableCell>
                   <Link to={"/" + row.id}>
-                    {prices[i][0]} to {prices[i][1]} USD
+                    {prices[i]}
                   </Link>
                 </TableCell>
                 <TableCell>
