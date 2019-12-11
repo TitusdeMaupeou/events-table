@@ -8,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Paper } from "@material-ui/core";
+import { join } from "path";
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -26,10 +27,19 @@ const DataTable = () => {
     setPage(0);
   };
 
-const priceRanges = Object(dataState.data).map((key, index) => {
+// const priceRanges = Object(dataState.data).map((key, index) => {
+//   let arr = []
+//   dataState.data[index].priceRanges !== undefined
+//   ? dataState.data[index].priceRanges.map(j =>
+//       arr[index] = j.min + " to " + j.max + " " + j.currency
+//     ) : arr[index] = "-"
+//   return arr;
+// });
+
+const priceRanges = (row, index) => Object.values(row).map((key, index) => {
   let arr = []
-  dataState.data[index].priceRanges !== undefined
-  ? dataState.data[index].priceRanges.map(j =>
+  row.priceRanges !== undefined
+  ? row.priceRanges.map(j =>
       arr[index] = j.min + " to " + j.max + " " + j.currency
     ) : arr[index] = "-"
   return arr;
@@ -60,7 +70,8 @@ const priceRanges = Object(dataState.data).map((key, index) => {
                 </TableCell>
                 <TableCell>
                   <Link to={"/" + row.id}>
-                  {priceRanges[i]}
+                  {priceRanges(row, i)[0]}
+                  {console.log(priceRanges(row,i))}
                   </Link>
                 </TableCell>
                 <TableCell>

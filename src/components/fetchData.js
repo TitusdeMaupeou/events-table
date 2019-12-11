@@ -12,10 +12,7 @@ const FetchData = url => {
           .then(function(d) {
             setDataState({
               ...dataState,
-              data: d._embedded.events,
-              priceRanges: Object.values(d._embedded.events).map(item => {
-                return item.priceRanges;
-              })
+              data: d._embedded.events
             });
             setLoading(false);
           });
