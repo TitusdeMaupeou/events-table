@@ -30,7 +30,7 @@ function ItemPage({ match }) {
 
   const priceRanges = item.priceRanges.map(i => (
     <p className="item__text">
-      {typeof i !== undefined
+      {i !== undefined
         ? i.min + " to " + i.max + " USD"
         : "No prices available"}
     </p>
@@ -57,7 +57,9 @@ function ItemPage({ match }) {
         <p className="item__text">
           {
             Object.values(item.sales).map(i => {
-              return i.startDateTime + " until " + i.endDateTime;
+              if(i.startDateTime !== undefined || i.endDateTime !== undefined) {
+                return i.startDateTime + " until " + i.endDateTime;
+              }
             })
           }
         </p>
