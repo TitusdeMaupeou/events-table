@@ -8,10 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Paper } from "@material-ui/core";
-import MaterialTable from 'material-table';
-import {Cell, Row} from 'material-table';
-import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -20,6 +17,7 @@ const DataTable = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [priceMin, setPriceMin] = useState(50);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -39,7 +37,8 @@ const DataTable = () => {
 //   return arr;
 // });
 
-const priceRanges = (row, priceMin) => Object.values(row).map((key, index) => {
+const priceRanges = (row, priceMin) => 
+Object.keys(row).map(() => {
   let obj = {}
   row.priceRanges !== undefined
   ? row.priceRanges
@@ -51,7 +50,6 @@ const priceRanges = (row, priceMin) => Object.values(row).map((key, index) => {
     ) : obj.min = "-"
   return obj.min;
 });
-
 
 return (
   <div className="container">
@@ -78,7 +76,7 @@ return (
               </TableCell>
               <TableCell>
                 <Link to={"/" + row.id}>
-                {priceRanges(row, 50)[0]}
+                {priceRanges(row, priceMin)[0]}
                 </Link>
               </TableCell>
               <TableCell>
