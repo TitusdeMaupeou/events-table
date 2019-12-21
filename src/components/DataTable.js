@@ -30,30 +30,6 @@ const DataTable = () => {
     setPage(0);
   };
 
-  function TablePaginationActions(props) {
-    const { count, page, rowsPerPage, onFilterPrice } = props;
-  
-    const filterPrice = event => {
-      onFilterPrice(event, )
-    }
-
-    return (
-      <div className="test">
-        <IconButton
-          onClick={filterPrice}
-          >
-        </IconButton>
-      </div>
-    );
-  }
-  
-  TablePaginationActions.propTypes = {
-    count: PropTypes.number.isRequired,
-    onChangePage: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-  };
-
 // const priceRanges = Object(dataState.data).map((key, index) => {
 //   let arr = []
 //   dataState.data[index].priceRanges !== undefined
@@ -64,14 +40,18 @@ const DataTable = () => {
 // });
 
 const priceRanges = (row, priceMin) => Object.values(row).map((key, index) => {
-  let arr = []
+  let obj = {}
   row.priceRanges !== undefined
   ? row.priceRanges
+  .filter(i => {
+    return i.min < priceMin
+  })
   .map(j =>
-      arr[index] = j.min + " to " + j.max + " " + j.currency
-    ) : arr[index] = "-"
-  return arr;
+      obj.min = j.min
+    ) : obj.min = "-"
+  return obj.min;
 });
+
 
 return (
   <div className="container">
@@ -91,14 +71,14 @@ return (
                 page * rowsPerPage + rowsPerPage
               )
             : dataState.data
-          ).map((row, i) => (
+          ).map((row) => (
             <TableRow key={row.id}>
               <TableCell>
                 <Link to={"/" + row.id}>{row.name}</Link>
               </TableCell>
               <TableCell>
                 <Link to={"/" + row.id}>
-                {priceRanges(row, i)[0]}
+                {priceRanges(row, 50)[0]}
                 </Link>
               </TableCell>
               <TableCell>
@@ -118,14 +98,8 @@ return (
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
-        ActionsComponent={TablePaginationActions}
       />
     </Paper>
-    {/* <MaterialTable 
-      options={{
-        filtering:true
-      }}
-    /> */}
   </div>
 );
 };
