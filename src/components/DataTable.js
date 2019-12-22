@@ -17,7 +17,7 @@ const DataTable = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [priceMin, setPriceMin] = useState(50);
+  const [priceMin, setPriceMin] = useState(100);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -27,15 +27,6 @@ const DataTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-// const priceRanges = Object(dataState.data).map((key, index) => {
-//   let arr = []
-//   dataState.data[index].priceRanges !== undefined
-//   ? dataState.data[index].priceRanges.map(j =>
-//       arr[index] = j.min + " to " + j.max + " " + j.currency
-//     ) : arr[index] = "-"
-//   return arr;
-// });
 
 const priceRanges = (row, priceMin) => 
 Object.keys(row).map(() => {
@@ -51,6 +42,17 @@ Object.keys(row).map(() => {
   return obj.min;
 });
 
+/*  to filter out whole rows with a lower price,
+    I could use this and replace the dataState.data
+    below with this function
+*/
+
+const rows = dataState.data.filter(top => {
+  if (top.priceRanges !== undefined) {
+      top.priceRanges.filter(i => i.min < priceMin)
+    }
+  }
+);
 return (
   <div className="container">
     <Paper>
@@ -69,7 +71,8 @@ return (
                 page * rowsPerPage + rowsPerPage
               )
             : dataState.data
-          ).map((row) => (
+          )
+          .map(row => (
             <TableRow key={row.id}>
               <TableCell>
                 <Link to={"/" + row.id}>{row.name}</Link>
@@ -85,7 +88,8 @@ return (
                 </Link>
               </TableCell>
             </TableRow>
-          ))}
+          ))
+          }
         </TableBody>
       </Table>
       <TablePagination
@@ -101,4 +105,5 @@ return (
   </div>
 );
 };
+
 export default DataTable;
