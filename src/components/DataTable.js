@@ -17,7 +17,7 @@ const DataTable = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [priceMin, setPriceMin] = useState(100);
+  const [priceMin, setPriceMin] = useState(50);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
