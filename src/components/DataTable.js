@@ -65,7 +65,8 @@ return (
           defaultValue={0}
           onChange={handlePriceChange}
           step={10}
-          valueLabelDisplay="auto" 
+          valueLabelDisplay="auto"
+          className="table__slider"
         />
         <TableHead>
           <TableRow>

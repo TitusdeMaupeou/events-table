@@ -52,8 +52,8 @@ tbody tr:hover {
   width: 80%;
 }
 
-.item__img {
-  height: 200px;
+.table__slider {
+  margin: 0 20px;
 }
 
 hr {
