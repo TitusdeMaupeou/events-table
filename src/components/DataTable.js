@@ -8,7 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Paper } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/core/Slider';
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -27,19 +27,23 @@ const DataTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  
+  const handlePriceChange = (event, newValue) => {
+    setPriceMin(newValue);
+  };
 
 const priceRanges = (row, priceMin) => 
-Object.keys(row).map(() => {
-  let obj = {}
-  row.priceRanges !== undefined
-  ? row.priceRanges
-  .filter(i => {
-    return i.min < priceMin
-  })
-  .map(j =>
-      obj.min = j.min
-    ) : obj.min = "-"
-  return obj.min;
+  Object.keys(row).map(() => {
+    let obj = {}
+    row.priceRanges !== undefined
+    ? row.priceRanges
+    .filter(i => {
+      return i.min < priceMin
+    })
+    .map(j =>
+        obj.min = j.min
+      ) : obj.min = "-"
+    return obj.min;
 });
 
 /*  to filter out whole rows with a lower price,
@@ -57,6 +61,12 @@ return (
   <div className="container">
     <Paper>
       <Table>
+        <Slider   
+          defaultValue={0}
+          onChange={handlePriceChange}
+          step={10}
+          valueLabelDisplay="auto" 
+        />
         <TableHead>
           <TableRow>
             <TableCell>Event</TableCell>
