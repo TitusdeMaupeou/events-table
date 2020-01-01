@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, Grid} from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 function ItemPage({ match }) {
   useEffect(() => {
@@ -55,15 +55,12 @@ function ItemPage({ match }) {
         </p>
         <h2>Start sales</h2>
         <p className="item__text">
-          {
-            Object.values(item.sales).map(i => {
-              if(i.startDateTime !== undefined || i.endDateTime !== undefined) {
-                let start = i.startDateTime.split('-');
-                console.log(start, start[2])
-                return start + start[2][0, 2] + " until " + i.endDateTime;
-              }
-            })
-          }
+          {Object.values(item.sales).map(i => {
+            if (i.startDateTime !== undefined || i.endDateTime !== undefined) {
+              let start = i.startDateTime.split("-");
+              return start + start[2][(0, 2)] + " until " + i.endDateTime;
+            }
+          })}
         </p>
       </Paper>
     </div>

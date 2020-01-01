@@ -35,9 +35,9 @@ td {
   padding: .35em;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: #ffffff;
-}
+} */
 
 tbody tr:hover {
   background-color: #f2f2f2;
@@ -46,6 +46,11 @@ tbody tr:hover {
 .item {
   padding: 30px 50px;
 }
+
+.item__img {
+  width: 200px;
+}
+
 
 .item__text {
   color: #999999;  
@@ -59,4 +64,12 @@ tbody tr:hover {
 hr {
   color: rgb(55,141,225);
   color: linear-gradient(90deg, rgba(55,141,225,1) 0%, rgba(55,98,225,1) 100%);
+}
+
+.disabled {
+  background-color: #f2f2f2;
+}
+
+.disabled tr {
+  color: #9999;
 }
