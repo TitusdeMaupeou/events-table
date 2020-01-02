@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import FetchData from "./FetchData";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableHead from "@material-ui/core/TableHead";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import TablePagination from "@material-ui/core/TablePagination";
-import { Paper } from "@material-ui/core";
+import FetchData from "../hooks/FetchData";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableCell,
+  TableRow,
+  TablePagination,
+  Slider,
+  Paper
+} from "@material-ui/core/";
+import Row from "./Row";
 
 const API_URL =
   "https://app.ticketmaster.com/discovery/v2/events.json?apikey=3ofV0pnHEKQLOpEUzPvMmDkW2vzJOGJd";
@@ -15,7 +19,8 @@ const API_URL =
 const DataTable = () => {
   const [dataState] = FetchData(API_URL);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [priceMin, setPriceMin] = useState(50);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -26,28 +31,35 @@ const DataTable = () => {
     setPage(0);
   };
 
-// const priceRanges = Object(dataState.data).map((key, index) => {
-//   let arr = []
-//   dataState.data[index].priceRanges !== undefined
-//   ? dataState.data[index].priceRanges.map(j =>
-//       arr[index] = j.min + " to " + j.max + " " + j.currency
-//     ) : arr[index] = "-"
-//   return arr;
-// });
+  const handlePriceChange = (event, newValue) => {
+    setPriceMin(newValue);
+  };
 
-const priceRanges = (row, index) => Object.values(row).map((key, index) => {
-  let arr = []
-  row.priceRanges !== undefined
-  ? row.priceRanges.map(j =>
-      arr[index] = j.min + " to " + j.max + " " + j.currency
-    ) : arr[index] = "-"
-  return arr;
-});
+  const priceRanges = row =>
+    Object.keys(row).map(() => {
+      let obj = {};
+      row.priceRanges !== undefined
+        ? row.priceRanges.map(j => {
+            obj.max = j.max;
+            obj.min = j.min;
+            obj.currency = j.currency;
+          })
+        : (obj.min = "-");
+      return obj;
+    });
 
   return (
     <div className="container">
       <Paper>
         <Table>
+          <Slider
+            defaultValue={50}
+            onChange={handlePriceChange}
+            step={10}
+            max={200}
+            valueLabelDisplay="auto"
+            className="table__slider"
+          />
           <TableHead>
             <TableRow>
               <TableCell>Event</TableCell>
@@ -62,29 +74,20 @@ const priceRanges = (row, index) => Object.values(row).map((key, index) => {
                   page * rowsPerPage + rowsPerPage
                 )
               : dataState.data
-            ).map((row, i) => (
-              <TableRow key={row.id}>
-                <TableCell>
-                  <Link to={"/" + row.id}>{row.name}</Link>
-                </TableCell>
-                <TableCell>
-                  <Link to={"/" + row.id}>
-                  {priceRanges(row, i)[0]}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link to={"/" + row.id}>
-                    {row.dates.start.localDate} {row.dates.start.localTime}
-                  </Link>
-                </TableCell>
-              </TableRow>
+            ).map(row => (
+              <Row
+                key={row.id}
+                row={row}
+                priceMin={priceMin}
+                price={priceRanges(row)[0]}
+              ></Row>
             ))}
           </TableBody>
         </Table>
         <TablePagination
           rowsPerPageOptions={[5, 10]}
           component="div"
-          count={50}
+          count={dataState.data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

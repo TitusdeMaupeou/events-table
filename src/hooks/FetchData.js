@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const FetchData = url => {
   const [loading, setLoading] = useState(true);
-  const [dataState, setDataState] = useState({ data: [], priceRanges: [] });
+  const [dataState, setDataState] = useState({ data: [] });
 
   useEffect(() => {
     const fetchDataFromApi = async () => {

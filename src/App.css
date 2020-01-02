@@ -35,9 +35,9 @@ td {
   padding: .35em;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
   background-color: #ffffff;
-}
+} */
 
 tbody tr:hover {
   background-color: #f2f2f2;
@@ -47,16 +47,30 @@ tbody tr:hover {
   padding: 30px 50px;
 }
 
+.item__img {
+  width: 200px;
+}
+
+
 .item__text {
   color: #999999;  
   width: 80%;
 }
 
-.item__img {
-  height: 200px;
+.table__slider {
+  margin: 0 20px;
 }
 
 hr {
   color: rgb(55,141,225);
   color: linear-gradient(90deg, rgba(55,141,225,1) 0%, rgba(55,98,225,1) 100%);
+}
+
+.disabled {
+  background-color: #f2f2f2;
+  pointer-events: none;
+}
+
+.disabled tr {
+  color: #9999;
 }
